@@ -15,14 +15,20 @@ RUN \
     echo "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y \
+	    software-properties-common \
+        python-software-properties \
         build-essential \
-        gcc4.9 \
-        g++4.9 \
         pkg-config \
         jq/trusty-backports \
-        sudo && \
+        sudo 
+
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get install -y gcc-4.9 g++-4.9 && \
     make get-deps && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* \\ 
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100 && \ 
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 && \ 
     
 # Move in all the other files
 COPY . /app
@@ -30,7 +36,7 @@ COPY . /app
 # Build vg
 RUN . ./source_me.sh && make -j8
 
-# Make tests. We can't do it in parallel since it cleans up the test binary
+# # Make tests. We can't do it in parallel since it cleans up the test binary
 RUN make test
 
 ENV LD_LIBRARY_PATH=/app/lib

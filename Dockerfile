@@ -20,15 +20,17 @@ RUN \
         build-essential \
         pkg-config \
         jq/trusty-backports \
+        git \
         sudo 
 
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get update && \
     apt-get install -y gcc-4.9 g++-4.9 && \
-    make get-deps && \
-    rm -rf /var/lib/apt/lists/* \\ 
+    rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100 && \ 
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 && \ 
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 
+
+# RUN make get-deps 
     
 # Move in all the other files
 COPY . /app

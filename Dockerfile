@@ -21,16 +21,17 @@ RUN \
         pkg-config \
         jq/trusty-backports \
         sudo \
-        dh-autoreconf \
         git vim 
 
+# may not need to remove these
 RUN \ 
     apt-get remove gcc-4.8 g++-4.8 gcc-4.8-base:amd64 \ 
 	apt-get autoremove
 
+# may not need to re-add all of these if I don't remove all of gcc
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get update && \
-    apt-get install -y gcc-4.9 g++-4.9 libtool autoconf && \
+    apt-get install -y gcc-4.9 g++-4.9 libtool autoconf dh-autoreconf cmake && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100 && \ 
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 

@@ -32,7 +32,7 @@ RUN \
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get update && \
     apt-get install -y gcc-4.9 g++-4.9  && \
-	apt-get install -y protobuf-compiler libprotoc-dev libjansson-dev libbz2-dev libncurses5-dev automake libtool jq samtools curl unzip redland-utils librdf-dev cmake pkg-config wget bc gtk-doc-tools raptor2-utils rasqal-utils bison flex && \
+	apt-get install -y protobuf-compiler libprotoc-dev libjansson-dev libbz2-dev libncurses5-dev automake libtool jq samtools curl unzip redland-utils librdf-dev cmake pkg-config wget bc gtk-doc-tools raptor2-utils rasqal-utils bison flex doxygen && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100 && \ 
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 && \ 

@@ -1,0 +1,7 @@
+git submodule update --recursive --remote
+
+docker build . 
+docker ps 
+docker run -it 3a6053ad6b70 /bin/bash 
+
+
